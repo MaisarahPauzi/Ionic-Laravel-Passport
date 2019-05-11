@@ -1,0 +1,7 @@
+{
+  "name": "Auth_App",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
