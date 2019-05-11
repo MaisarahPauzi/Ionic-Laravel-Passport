@@ -35,7 +35,6 @@ export class LoginPage {
     });
     this.getData
     .subscribe(data => {
-      console.log(data.token);
       this.storage.set('token', data.token);
       this.navController.setRoot(DashboardPage);
     })

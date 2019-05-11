@@ -19,33 +19,37 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class DashboardPage {
   username:string;
   email:string;
-  token:string;
   getData:Observable<any>;
   clickDetails=false;
   constructor(public navController: NavController, public navParams: NavParams, public httpClient: HttpClient, private storage:Storage) {
   }
 
   ionViewDidLoad() {
+    
     this.storage.get('token').then((val) => {
-      this.token=val;
-      console.log('Your token:', this.token)
+      this.getUserDetails(val);
+
     });
 
     
   }
-  getUserDetails(){
-    this.clickDetails = true;
+
+  
+  getUserDetails(auth_token){
+    
     let headers: HttpHeaders = new HttpHeaders({
-      'Authorization': 'Bearer '+this.token,
+      'Authorization': 'Bearer '+ auth_token,
     })
 
     this.getData = this.httpClient.get('http://34.214.97.185/newweb/public/api/details',{headers});
     this.getData
     .subscribe(data => {
-      console.log(data);
+
       this.username = data.user.name;
       this.email = data.user.email;
     })
+
+    this.clickDetails = true;
   }
 
   loggingOut(){
